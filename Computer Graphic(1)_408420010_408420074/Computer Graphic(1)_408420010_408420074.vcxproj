@@ -187,6 +187,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BaseStruct.h" />
     <ClInclude Include="Computer Graphic(1)_408420010_408420074.h" />
     <ClInclude Include="Computer Graphic(1)_408420010_408420074Doc.h" />
     <ClInclude Include="Computer Graphic(1)_408420010_408420074View.h" />

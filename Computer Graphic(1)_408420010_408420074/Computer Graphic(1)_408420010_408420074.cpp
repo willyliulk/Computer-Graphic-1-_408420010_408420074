@@ -71,7 +71,7 @@ BOOL CComputerGraphic1408420010408420074App::InitInstance()
 	// 框架視窗與檢視間進行連接
 	CSingleDocTemplate* pDocTemplate;
 	pDocTemplate = new CSingleDocTemplate(
-		IDR_MAINFRAME,
+		/*IDR_MAINFRAME*/ IDR_MENU_EN,
 		RUNTIME_CLASS(CComputerGraphic1408420010408420074Doc),
 		RUNTIME_CLASS(CMainFrame),       // 主 SDI 框架視窗
 		RUNTIME_CLASS(CComputerGraphic1408420010408420074View));

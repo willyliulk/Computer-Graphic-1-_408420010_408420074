@@ -18,6 +18,8 @@ IMPLEMENT_DYNCREATE(CMainFrame, CFrameWnd)
 
 BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_WM_CREATE()
+	ON_COMMAND(ID_SWITCH_SWITCHCHINESEMENU, &CMainFrame::OnSwitchSwitchchinesemenu)
+	ON_COMMAND(ID_SWITCH_SWITCHENMENU, &CMainFrame::OnSwitchSwitchenmenu)
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -33,6 +35,8 @@ static UINT indicators[] =
 CMainFrame::CMainFrame() noexcept
 {
 	// TODO: 在此加入成員初始化程式碼
+	ChMainMenu.LoadMenu(IDR_MENU_CH);
+	EnMainMenu.LoadMenu(IDR_MENU_EN);
 }
 
 CMainFrame::~CMainFrame()
@@ -94,3 +98,17 @@ void CMainFrame::Dump(CDumpContext& dc) const
 
 // CMainFrame 訊息處理常式
 
+
+
+void CMainFrame::OnSwitchSwitchchinesemenu()
+{
+	// TODO: 在此加入您的命令處理常式程式碼
+	SetMenu(&ChMainMenu);
+}
+
+
+void CMainFrame::OnSwitchSwitchenmenu()
+{
+	// TODO: 在此加入您的命令處理常式程式碼
+	SetMenu(&EnMainMenu);
+}
