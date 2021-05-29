@@ -4,7 +4,7 @@
 
 
 #pragma once
-
+#include "BaseStruct.h"
 
 class CComputerGraphic1408420010408420074Doc : public CDocument
 {
@@ -14,6 +14,16 @@ protected: // 僅從序列化建立
 
 // 屬性
 public:
+	CArray <MyPoint, MyPoint &> pArray;
+	CArray <MyLine, MyLine &> lArray;
+	int shapeNum;
+	COLORREF Obj_Color;
+	int P_Type;
+	void RemoveAll() 
+	{
+		pArray.RemoveAll();
+		lArray.RemoveAll();
+	}
 
 // 作業
 public:

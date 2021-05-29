@@ -23,6 +23,11 @@
 IMPLEMENT_DYNCREATE(CComputerGraphic1408420010408420074View, CView)
 
 BEGIN_MESSAGE_MAP(CComputerGraphic1408420010408420074View, CView)
+	ON_COMMAND(ID_DRAW_POINT, &CComputerGraphic1408420010408420074View::OnDrawPoint)
+	ON_WM_LBUTTONDOWN()
+	ON_WM_MOUSEMOVE()
+	ON_WM_LBUTTONUP()
+	ON_COMMAND(ID_DRAW_LINE, &CComputerGraphic1408420010408420074View::OnDrawLine)
 END_MESSAGE_MAP()
 
 // CComputerGraphic1408420010408420074View 建構/解構
@@ -47,7 +52,7 @@ BOOL CComputerGraphic1408420010408420074View::PreCreateWindow(CREATESTRUCT& cs)
 
 // CComputerGraphic1408420010408420074View 繪圖
 
-void CComputerGraphic1408420010408420074View::OnDraw(CDC* /*pDC*/)
+void CComputerGraphic1408420010408420074View::OnDraw(CDC* pDC)
 {
 	CComputerGraphic1408420010408420074Doc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
@@ -55,6 +60,20 @@ void CComputerGraphic1408420010408420074View::OnDraw(CDC* /*pDC*/)
 		return;
 
 	// TODO: 在此加入原生資料的描繪程式碼
+
+	int Pnum = pDoc->pArray.GetSize();
+	for (int i = 0; i < Pnum; i++) {
+		if (pDoc->pArray[i].Tpye == 0)
+		{
+			pDC->SetPixel(pDoc->pArray[i].point, pDoc->pArray[i].color);
+		}
+		else
+		{
+			pDC->Ellipse(pDoc->pArray[i].point.x - 3, pDoc->pArray[i].point.y - 3, pDoc->pArray[i].point.x + 3,pDoc->pArray[i].point.y + 3);
+		}
+	}
+	int Lnum = pDoc->lArray.GetCount();
+
 }
 
 
@@ -80,3 +99,82 @@ CComputerGraphic1408420010408420074Doc* CComputerGraphic1408420010408420074View:
 
 
 // CComputerGraphic1408420010408420074View 訊息處理常式
+
+
+void CComputerGraphic1408420010408420074View::OnDrawPoint()
+{
+	// TODO: 在此加入您的命令處理常式程式碼
+	CComputerGraphic1408420010408420074Doc *doc = (CComputerGraphic1408420010408420074Doc *)GetDocument();
+	doc->shapeNum = 0;
+	doc->Obj_Color = RGB(0, 0, 255);
+	doc->P_Type = 0;
+}
+
+
+void CComputerGraphic1408420010408420074View::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: 在此加入您的訊息處理常式程式碼和 (或) 呼叫預設值
+	CView::OnLButtonDown(nFlags, point);
+	SetCapture();
+	CComputerGraphic1408420010408420074Doc *doc = (CComputerGraphic1408420010408420074Doc *)GetDocument();
+	if (doc->shapeNum == 1)
+	{
+		MyLine line;
+		line.StartPnt = point;
+		line.color = doc->Obj_Color;
+		doc->lArray.Add(line);
+		
+	}
+}
+
+
+void CComputerGraphic1408420010408420074View::OnMouseMove(UINT nFlags, CPoint point)
+{
+	// TODO: 在此加入您的訊息處理常式程式碼和 (或) 呼叫預設值
+	CView::OnMouseMove(nFlags, point);
+	MyPoint temppoint;
+	CComputerGraphic1408420010408420074Doc *doc = (CComputerGraphic1408420010408420074Doc *)GetDocument();
+	if (this == GetCapture()) 
+	{
+		CClientDC aDC(this);
+		if (doc->P_Type == 0)
+		{
+			aDC.SetPixel(point, doc->Obj_Color);
+		}
+		else
+		{
+			temppoint.point = point;
+			temppoint.color = doc->Obj_Color;
+			temppoint.Tpye = doc->P_Type;
+			doc->pArray.Add(temppoint);
+		}
+	}
+}
+
+
+void CComputerGraphic1408420010408420074View::OnLButtonUp(UINT nFlags, CPoint point)
+{
+	// TODO: 在此加入您的訊息處理常式程式碼和 (或) 呼叫預設值
+
+	CView::OnLButtonUp(nFlags, point);
+	ReleaseCapture();
+	CComputerGraphic1408420010408420074Doc *doc = (CComputerGraphic1408420010408420074Doc *)GetDocument();
+	if(doc->shapeNum == 1)
+	{
+		CClientDC aDC(this);
+		doc->lArray[doc->lArray.GetSize() - 1].EndPnt = point;
+		CPen pen(PS_SOLID, 2, doc->Obj_Color);
+		CPen *oldPen = aDC.SelectObject(&pen);
+		aDC.MoveTo(doc->lArray[doc->lArray.GetSize() - 1].StartPnt);
+		aDC.LineTo(point);
+		doc->shapeNum;
+	}
+}
+
+
+void CComputerGraphic1408420010408420074View::OnDrawLine()
+{
+	// TODO: 在此加入您的命令處理常式程式碼
+	CComputerGraphic1408420010408420074Doc *doc = GetDocument();
+	doc->shapeNum = 1;
+}

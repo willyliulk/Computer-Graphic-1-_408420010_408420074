@@ -13,6 +13,7 @@ protected: // 僅從序列化建立
 
 // 屬性
 public:
+	CMenu ChMainMenu, EnMainMenu;
 
 // 作業
 public:
@@ -38,6 +39,11 @@ protected:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	DECLARE_MESSAGE_MAP()
 
+
+
+public:
+	afx_msg void OnSwitchSwitchchinesemenu();
+	afx_msg void OnSwitchSwitchenmenu();
 };
 
 
