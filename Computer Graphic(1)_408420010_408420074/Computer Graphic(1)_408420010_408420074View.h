@@ -14,6 +14,8 @@ protected: // 僅從序列化建立
 // 屬性
 public:
 	CComputerGraphic1408420010408420074Doc* GetDocument() const;
+	MyLine TempLine;
+	int LineWidth;
 
 // 作業
 public:
