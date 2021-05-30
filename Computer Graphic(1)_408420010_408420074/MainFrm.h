@@ -14,6 +14,7 @@ protected: // 僅從序列化建立
 // 屬性
 public:
 	CMenu ChMainMenu, EnMainMenu;
+	int a=1*1;
 
 // 作業
 public:
