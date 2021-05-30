@@ -35,7 +35,7 @@ END_MESSAGE_MAP()
 CComputerGraphic1408420010408420074View::CComputerGraphic1408420010408420074View() noexcept
 {
 	// TODO: 在此加入建構程式碼
-
+	LineWidth = 10;
 }
 
 CComputerGraphic1408420010408420074View::~CComputerGraphic1408420010408420074View()
@@ -73,7 +73,13 @@ void CComputerGraphic1408420010408420074View::OnDraw(CDC* pDC)
 		}
 	}
 	int Lnum = pDoc->lArray.GetCount();
-
+	for(int i = 0; i < Lnum; i++)
+	{
+		CPen pen(PS_SOLID, 2, pDoc->lArray.GetAt(i).color);
+		CPen *oldPen = pDC->SelectObject(&pen);
+		pDC->MoveTo(pDoc->lArray.GetAt(i).StartPnt);
+		pDC->LineTo(pDoc->lArray.GetAt(i).EndPnt);
+	}
 }
 
 
@@ -119,10 +125,9 @@ void CComputerGraphic1408420010408420074View::OnLButtonDown(UINT nFlags, CPoint 
 	CComputerGraphic1408420010408420074Doc *doc = (CComputerGraphic1408420010408420074Doc *)GetDocument();
 	if (doc->shapeNum == 1)
 	{
-		MyLine line;
-		line.StartPnt = point;
-		line.color = doc->Obj_Color;
-		doc->lArray.Add(line);
+		TempLine.StartPnt = point;
+		TempLine.color = doc->Obj_Color;
+		TempLine.LineWidth = LineWidth;
 		
 	}
 }
@@ -162,12 +167,10 @@ void CComputerGraphic1408420010408420074View::OnLButtonUp(UINT nFlags, CPoint po
 	if(doc->shapeNum == 1)
 	{
 		CClientDC aDC(this);
-		doc->lArray[doc->lArray.GetSize() - 1].EndPnt = point;
-		CPen pen(PS_SOLID, 2, doc->Obj_Color);
-		CPen *oldPen = aDC.SelectObject(&pen);
-		aDC.MoveTo(doc->lArray[doc->lArray.GetSize() - 1].StartPnt);
-		aDC.LineTo(point);
-		doc->shapeNum;
+		TempLine.EndPnt = point;
+		TempLine.draw2(aDC);
+		doc->lArray.Add(TempLine);
+
 	}
 }
 
