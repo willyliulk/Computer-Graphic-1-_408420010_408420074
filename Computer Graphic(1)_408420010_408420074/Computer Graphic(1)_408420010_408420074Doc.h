@@ -16,9 +16,12 @@ protected: // 僅從序列化建立
 public:
 	CArray <MyPoint, MyPoint &> pArray;
 	CArray <MyLine, MyLine &> lArray;
+	CArray <MyEllipse, MyEllipse &> EArray;
+	CArray <MyRect, MyRect &> RArray;
 	int shapeNum;
 	COLORREF Obj_Color;
 	int P_Type;
+	int L_Type;
 	void RemoveAll() 
 	{
 		pArray.RemoveAll();
