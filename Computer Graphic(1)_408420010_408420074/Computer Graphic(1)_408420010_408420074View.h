@@ -16,6 +16,10 @@ public:
 	CComputerGraphic1408420010408420074Doc* GetDocument() const;
 	MyLine TempLine;
 	int LineWidth;
+	MyEllipse TempEllipse;
+	MyRect TempRect;
+	COLORREF color = RGB(255, 0, 0);
+	COLORREF fcolor = RGB(0, 0, 255);
 
 // 作業
 public:
@@ -45,6 +49,11 @@ public:
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnDrawLine();
+	afx_msg void OnDrawDotline();
+	afx_msg void OnDrawEllipse();
+	afx_msg void OnColorManualcolor();
+	afx_msg void OnColorFillcolor();
+	afx_msg void OnDrawRectangle();
 };
 
 #ifndef _DEBUG  // 對 Computer Graphic(1)_408420010_408420074View.cpp 中的版本進行偵錯
