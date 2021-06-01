@@ -54,6 +54,9 @@ public:
 	afx_msg void OnColorManualcolor();
 	afx_msg void OnColorFillcolor();
 	afx_msg void OnDrawRectangle();
+	afx_msg void OnColorRed();
+	afx_msg void OnColorGreen();
+	afx_msg void OnColorBlue();
 };
 
 #ifndef _DEBUG  // 對 Computer Graphic(1)_408420010_408420074View.cpp 中的版本進行偵錯

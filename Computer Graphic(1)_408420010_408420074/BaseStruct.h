@@ -55,7 +55,6 @@ public:
 		color = RGB(255, 0, 0);
 		shapenum = 1;
 		StartPnt = (0, 0);
-		Type = 1;
 	}
 	//«Øºc¤l
 	MyLine(CPoint StartPnt2, CPoint EndPnt2, COLORREF color2)
@@ -73,7 +72,12 @@ public:
 		LineWidth = l.LineWidth;
 		EndPnt = l.EndPnt;
 		shapenum = l.shapenum;
+		Type = l.Type;
 		return *this;
+	}
+	void setType(int t)
+	{
+		Type = t;
 	}
 	void draw(CDC &dc, COLORREF Lcolor, COLORREF fcolor, int Lwidth, BOOL Filled = false)
 	{

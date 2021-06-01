@@ -33,6 +33,9 @@ BEGIN_MESSAGE_MAP(CComputerGraphic1408420010408420074View, CView)
 	ON_COMMAND(ID_COLOR_MANUALCOLOR, &CComputerGraphic1408420010408420074View::OnColorManualcolor)
 	ON_COMMAND(ID_COLOR_FILLCOLOR, &CComputerGraphic1408420010408420074View::OnColorFillcolor)
 	ON_COMMAND(ID_DRAW_RECTANGLE, &CComputerGraphic1408420010408420074View::OnDrawRectangle)
+	ON_COMMAND(ID_COLOR_RED, &CComputerGraphic1408420010408420074View::OnColorRed)
+	ON_COMMAND(ID_COLOR_GREEN, &CComputerGraphic1408420010408420074View::OnColorGreen)
+	ON_COMMAND(ID_COLOR_BLUE, &CComputerGraphic1408420010408420074View::OnColorBlue)
 END_MESSAGE_MAP()
 
 // CComputerGraphic1408420010408420074View 建構/解構
@@ -96,9 +99,6 @@ void CComputerGraphic1408420010408420074View::OnDraw(CDC* pDC)
 			pDoc->lArray.GetAt(i).drawDashDot(*pDC);
 		}
 		int a = pDoc->lArray.GetAt(i).Type;
-		CString s;
-		s.Format(_T("%d"), (pDoc->lArray.GetAt(i).Type));
-		pDC->TextOut(200, 50+20*i, s);
 	}
 
 	int Enum = pDoc->EArray.GetCount();
@@ -240,17 +240,14 @@ void CComputerGraphic1408420010408420074View::OnMouseMove(UINT nFlags, CPoint po
 				TempLine.draw2(aDC); //清除上一筆
 				TempLine.EndPnt = point; //設定新物件座標點
 				TempLine.draw2(aDC); //再畫出新形狀物
-				TempLine.Type = 0;
+
 			}
 			else if (doc->L_Type == 1) {//for dot line
 				TempLine.drawDashDot(aDC); //清除上一筆
 				TempLine.EndPnt = point; //設定新物件座標點
 				TempLine.drawDashDot(aDC); //再畫出新形狀物
-				TempLine.Type = 1;
+
 			}
-			CString s;
-			s.Format(_T("%d"), TempLine.Type);
-			aDC.TextOut(50, 50, s);
 		}
 		else if (doc->shapeNum == 2)//for ellipse
 		{
@@ -286,14 +283,14 @@ void CComputerGraphic1408420010408420074View::OnLButtonUp(UINT nFlags, CPoint po
 		if (doc->L_Type == 0) {//for solid line
 			TempLine.EndPnt = point;
 			TempLine.draw2(aDC);
-			
+			TempLine.setType(0);
 			doc->lArray.Add(TempLine);
 		}
 		else if (doc->L_Type == 1)//for dot line
 		{
 			TempLine.EndPnt = point;
 			TempLine.drawDashDot(aDC);
-			
+			TempLine.setType(1);
 			doc->lArray.Add(TempLine);
 		}
 
@@ -380,4 +377,31 @@ void CComputerGraphic1408420010408420074View::OnDrawRectangle()
 	// TODO: 在此加入您的命令處理常式程式碼
 	CComputerGraphic1408420010408420074Doc *doc = GetDocument();
 	doc->shapeNum = 3;
+}
+
+
+void CComputerGraphic1408420010408420074View::OnColorRed()
+{
+	// TODO: 在此加入您的命令處理常式程式碼
+	CComputerGraphic1408420010408420074Doc *doc = GetDocument();
+	doc->Obj_Color = RGB(255,0,0);
+	color = RGB(255,0,0);
+}
+
+
+void CComputerGraphic1408420010408420074View::OnColorGreen()
+{
+	// TODO: 在此加入您的命令處理常式程式碼
+	CComputerGraphic1408420010408420074Doc *doc = GetDocument();
+	doc->Obj_Color = RGB(0, 255, 0);
+	color = RGB(0, 255, 0);
+}
+
+
+void CComputerGraphic1408420010408420074View::OnColorBlue()
+{
+	// TODO: 在此加入您的命令處理常式程式碼
+	CComputerGraphic1408420010408420074Doc *doc = GetDocument();
+	doc->Obj_Color = RGB(0, 0, 255);
+	color = RGB(0, 0, 255);
 }
