@@ -248,9 +248,6 @@ void CComputerGraphic1408420010408420074View::OnMouseMove(UINT nFlags, CPoint po
 				TempLine.drawDashDot(aDC); //再畫出新形狀物
 				TempLine.Type = 1;
 			}
-			CString s;
-			s.Format(_T("%d"), TempLine.Type);
-			aDC.TextOut(50, 50, s);
 		}
 		else if (doc->shapeNum == 2)//for ellipse
 		{
